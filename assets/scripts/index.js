@@ -1,6 +1,6 @@
 const baseURL = 'http://localhost:3000/'
 
-// ----- INITIAL FETCH METHODS ----- //
+// ----- ADD INITIAL ITEMS TO PAGE METHODS ----- //
 function addItemsToPage() {
     // queries database and adds all items to the main div
     fetch(baseURL+'items')
@@ -49,6 +49,43 @@ function createItemDiv(itemObject) {
     return card
 }
 
+// ----- LOGIN METHODS ----- //
+
+function addLoginToPage() {
+    // empty main div, create login div and add to main div
+    const main = document.getElementById('main')
+    removeAllChildNodes(main)
+
+    const div = createLoginDiv()
+    main.appendChild(div)
+    main.addEventListener('click', loginButtonClick)
+}
+
+function createLoginDiv() {
+    // add all login features to a new div and return div
+    const div = document.createElement('div')
+    const button = document.createElement('button')
+    button.className = 'btn btn-secondary'
+    button.dataset.type = 'guest'
+    button.textContent = ' Play as Guest '
+    div.appendChild(button)
+    return div
+}
+
+function loginButtonClick(event) {
+    if (event.target.tagName !== 'BUTTON') {return}
+    // debugger
+    switch (event.target.dataset.type) {
+        case 'guest':
+            //initialize guest cart
+            addItemsToPage()
+            break
+        //set other cases for login/sign-up when they're created
+        default:
+            break
+    }
+}
+
 // ----- MISC HELPER METHODS ----- //
 function shortenName(name) {
     let returnName = name
@@ -66,4 +103,5 @@ function removeAllChildNodes(parent) {
 
 
 // Single access point!
-addItemsToPage()
+addLoginToPage()
+// addItemsToPage()
