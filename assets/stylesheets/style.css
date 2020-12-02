@@ -1,12 +1,19 @@
+#site-title {
+    padding: 12px 0px;
+    text-align: center;
+    grid-area: title;
+    font-family: 'Nerko One', cursive;
+    color: white;
+}
 .width-200px {
     object-fit: cover;
     object-position: 0% 100%;
-    width: 300px;
-    height: 300px;
+    width: 200px;
+    height: 200px;
     overflow: hidden;
 }
 .div-card {
-    width: 306px;
+    width: 206px;
     height: auto;
     margin: 5px;
     padding: 10px;
@@ -15,9 +22,43 @@
     border-style: solid; */
 }
 .div-card:hover {
+    cursor: pointer;
     box-shadow: 0 0 5px rgba(0,0,0,.05), 2px 2px 5px rgba(0,0,0,.1)
 }
 .cardName {
     margin: 5px 0px;
     font-size: 15px;
+}
+#head {
+    grid-template-columns: auto 32% auto;
+    grid-template-rows: auto;
+    grid-template-areas:
+        'area1 title area2';
+    display: grid;
+    width: 100%;
+    height: 80px;
+    background-color: rgb(93, 214, 147);
+}
+
+#search-form-container {
+    display: none;
+    padding: 35px 0px;
+    width: 100%;
+    height: 100px;
+    border-width: 1px;
+    border-color: gray;
+    border-style: solid;
+}
+
+#search-form > .field {
+    margin: 0 20px 0 5px;
+}
+
+#search-form > label {
+    /* font-size: 24px; */
+}
+
+#main {
+    display: none;
+    padding: 20px 80px;
 }

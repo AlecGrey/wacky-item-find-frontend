@@ -49,8 +49,64 @@ function createItemDiv(itemObject) {
     return card
 }
 
-// ----- LOGIN METHODS ----- //
+// ----- SEARCH BAR ----- //
+function changeSearchBarDisplay(display) {
+    document.getElementById('search-form-container').style.display = display
+}
 
+function getSearchBarCategories() {
+    // queries DB for all search categories
+    fetch(baseURL+'items/categories')
+        .then(resp => resp.json())
+        .then(populateSearchBarCategories)
+}
+
+function populateSearchBarCategories(json) {
+    // iterates through each category in the json object and appends an option to the select dropdown
+    const select = document.getElementById('category-select')
+    json.categories.forEach(category => {
+        const option = createSelectOption(category)
+        select.appendChild(option)
+    })
+}
+
+function createSelectOption(category) {
+    const option = document.createElement('option')
+    option.setAttribute('value', category)
+    option.textContent = category
+    return option
+}
+
+function searchEvent(event) {
+    event.preventDefault()
+    const path = createPathFromSearchFields(event.target)
+    fetchItemsWithParamsPath(path)
+    
+}
+
+function categoryChangeEvent(event) {
+    const category = event.target.value.replace(/&/g, '%26').split(' ').join('+')
+    const path = `items?category=${category}`
+    event.target.parentNode.query.value = ""
+    fetchItemsWithParamsPath(path)
+
+}
+
+function fetchItemsWithParamsPath(paramsPath) {
+    fetch(baseURL+paramsPath)
+        .then(resp => resp.json())
+        .then(createAndAppendItemsFromCollection)
+}
+
+function createPathFromSearchFields(form) {
+    let path = 'items'
+    const query = form.query.value.replace(/&/g, '%26').split(' ').join('+')
+    const category = form.category.value.replace(/&/g, '%26').split(' ').join('+')
+    path += `?query=${query}&category=${category}`
+    return path
+}
+
+// ----- LOGIN METHODS ----- //
 function addLoginToPage() {
     // empty main div, create login div and add to main div
     const main = document.getElementById('main')
@@ -78,7 +134,8 @@ function loginButtonClick(event) {
     switch (event.target.dataset.type) {
         case 'guest':
             //initialize guest cart
-            addItemsToPage()
+            changeSearchBarDisplay('block')   
+            addItemsToPage()        
             break
         //set other cases for login/sign-up when they're created
         default:
@@ -89,8 +146,8 @@ function loginButtonClick(event) {
 // ----- MISC HELPER METHODS ----- //
 function shortenName(name) {
     let returnName = name
-    if (name.length > 35) {
-        returnName = name.slice(0, 35) + '...'
+    if (name.length > 20) {
+        returnName = name.slice(0, 20) + '...'
     }
     return returnName
 }
@@ -101,7 +158,15 @@ function removeAllChildNodes(parent) {
     }
 }
 
+function addMouseEventToShowAddToCartButton() {
+    // mouseover event to display the add to cart button
+    // main.addEventListener('mouseover')
+}
 
-// Single access point!
+// GLOBAL EVENT LISTENERS
+document.getElementById('category-select').addEventListener('change', categoryChangeEvent)
+document.getElementById('search-form').addEventListener('submit', searchEvent)
+
+// ACCESS POINT FUNCTIONS
 addLoginToPage()
-// addItemsToPage()
+getSearchBarCategories()
