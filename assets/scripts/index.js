@@ -9,10 +9,14 @@ function toggleItemsContainerDisplay() {
 }
 
 function addItemsToPage() {
-    // queries database and adds all items to the items div
+    // INITIAL add items to page, sets initial page number to 1
     fetch(baseURL+'items')
         .then(resp => resp.json())
-        .then(createAndAppendItemsFromCollection)
+        .then(json => {
+            // debugger
+            createAndAppendItemsFromCollection(json.items)
+            document.getElementById('items').dataset.page = 1
+        })
 }
 
 function createAndAppendItemsFromCollection(collection) {
@@ -106,7 +110,9 @@ function categoryChangeEvent(event) {
 function fetchItemsWithParamsPath(paramsPath) {
     fetch(baseURL+paramsPath)
         .then(resp => resp.json())
-        .then(createAndAppendItemsFromCollection)
+        .then(json => {
+            createAndAppendItemsFromCollection(json.items)
+        })
 }
 
 function createPathFromSearchFields(form) {
