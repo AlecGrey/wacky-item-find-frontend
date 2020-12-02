@@ -1,0 +1,23 @@
+.width-200px {
+    object-fit: cover;
+    object-position: 0% 100%;
+    width: 300px;
+    height: 300px;
+    overflow: hidden;
+}
+.div-card {
+    width: 306px;
+    height: auto;
+    margin: 5px;
+    padding: 10px;
+    /* border-width: 1px;
+    border-color: gray;
+    border-style: solid; */
+}
+.div-card:hover {
+    box-shadow: 0 0 5px rgba(0,0,0,.05), 2px 2px 5px rgba(0,0,0,.1)
+}
+.cardName {
+    margin: 5px 0px;
+    font-size: 15px;
+}
