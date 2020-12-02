@@ -1,8 +1,15 @@
 const baseURL = 'http://localhost:3000/'
 
-// ----- ADD INITIAL ITEMS TO PAGE METHODS ----- //
+// ----- MAIN ITEM CONTAINER METHODS ----- //
+function toggleItemsContainerDisplay() {
+    const itemsDiv = document.getElementById('items')
+    if (itemsDiv.className === 'd-none') {
+        itemsDiv.className = "d-flex justify-content-center flex-wrap"
+    } else {itemsDiv.className = 'd-none'}
+}
+
 function addItemsToPage() {
-    // queries database and adds all items to the main div
+    // queries database and adds all items to the items div
     fetch(baseURL+'items')
         .then(resp => resp.json())
         .then(createAndAppendItemsFromCollection)
@@ -10,13 +17,13 @@ function addItemsToPage() {
 
 function createAndAppendItemsFromCollection(collection) {
     // receives a collection from a fetch request, removes all current items from div, and replaces with new items
-    const mainDiv = document.getElementById('main')
-    removeAllChildNodes(mainDiv)
+    const itemsDiv = document.getElementById('items')
+    removeAllChildNodes(itemsDiv)
 
     for (const item of collection) {
         // debugger
         const div = createItemDiv(item)
-        mainDiv.appendChild(div)
+        itemsDiv.appendChild(div)
     }
 }
 
@@ -50,8 +57,12 @@ function createItemDiv(itemObject) {
 }
 
 // ----- SEARCH BAR ----- //
-function changeSearchBarDisplay(display) {
-    document.getElementById('search-form-container').style.display = display
+function toggleSearchFormContainerDisplay() {
+    // toggles visibility of search bar at top of main screen
+    const searchFormContainer = document.getElementById('search-form-container')
+    if (searchFormContainer.className === 'd-none') {
+        searchFormContainer.className = 'd-block'
+    } else {searchFormContainer.className = 'd-none'}
 }
 
 function getSearchBarCategories() {
@@ -107,14 +118,20 @@ function createPathFromSearchFields(form) {
 }
 
 // ----- LOGIN METHODS ----- //
+function toggleLoginContainerDisplay() {
+    const loginContainer = document.getElementById('login-container')
+    if (loginContainer.className === 'd-none') {
+        loginContainer.className = 'd-flex justify-content-center'
+    } else {loginContainer.className = 'd-none'}
+}
+
 function addLoginToPage() {
-    // empty main div, create login div and add to main div
-    const main = document.getElementById('main')
-    removeAllChildNodes(main)
+    // create login div and add to login-container div
+    const loginDiv = document.getElementById('login-container')
 
     const div = createLoginDiv()
-    main.appendChild(div)
-    main.addEventListener('click', loginButtonClick)
+    loginDiv.appendChild(div)
+    // loginDiv.addEventListener('click', loginButtonClick)
 }
 
 function createLoginDiv() {
@@ -133,9 +150,10 @@ function loginButtonClick(event) {
     // debugger
     switch (event.target.dataset.type) {
         case 'guest':
-            //initialize guest cart
-            changeSearchBarDisplay('block')   
-            addItemsToPage()        
+            //toggles visibility of search bar and items DIVs
+            toggleLoginContainerDisplay()
+            toggleSearchFormContainerDisplay()  
+            toggleItemsContainerDisplay() 
             break
         //set other cases for login/sign-up when they're created
         default:
@@ -144,6 +162,12 @@ function loginButtonClick(event) {
 }
 
 // ----- MISC HELPER METHODS ----- //
+function loadPage() {
+    addLoginToPage()
+    getSearchBarCategories()
+    addItemsToPage()  
+}
+
 function shortenName(name) {
     let returnName = name
     if (name.length > 20) {
@@ -166,7 +190,7 @@ function addMouseEventToShowAddToCartButton() {
 // GLOBAL EVENT LISTENERS
 document.getElementById('category-select').addEventListener('change', categoryChangeEvent)
 document.getElementById('search-form').addEventListener('submit', searchEvent)
+document.getElementById('login-container').addEventListener('click', loginButtonClick)
 
 // ACCESS POINT FUNCTIONS
-addLoginToPage()
-getSearchBarCategories()
+loadPage()

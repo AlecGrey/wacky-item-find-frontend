@@ -38,16 +38,16 @@
     width: 100%;
     height: 80px;
     background-color: rgb(93, 214, 147);
+    box-shadow: 0 0 5px rgba(0,0,0,.05), 2px 2px 5px rgba(0,0,0,.1)
 }
 
 #search-form-container {
-    display: none;
     padding: 35px 0px;
     width: 100%;
     height: 100px;
-    border-width: 1px;
+    /* border-width: 1px;
     border-color: gray;
-    border-style: solid;
+    border-style: solid; */
 }
 
 #search-form > .field {
@@ -55,10 +55,8 @@
 }
 
 #search-form > label {
-    /* font-size: 24px; */
 }
 
-#main {
-    display: none;
+#items, #login-container {
     padding: 20px 80px;
 }
