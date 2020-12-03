@@ -13,9 +13,8 @@ function addItemsToPage() {
     fetch(baseURL+'items')
         .then(resp => resp.json())
         .then(json => {
-            // debugger
             createAndAppendItemsFromCollection(json.items)
-            document.getElementById('items').dataset.page = 1
+            // document.getElementById('items').dataset.page = 1
         })
 }
 
@@ -65,7 +64,7 @@ function toggleSearchFormContainerDisplay() {
     // toggles visibility of search bar at top of main screen
     const searchFormContainer = document.getElementById('search-form-container')
     if (searchFormContainer.className === 'd-none') {
-        searchFormContainer.className = 'd-block'
+        searchFormContainer.className = 'd-flex justify-content-center flex-column'
     } else {searchFormContainer.className = 'd-none'}
 }
 
@@ -108,19 +107,64 @@ function categoryChangeEvent(event) {
 }
 
 function fetchItemsWithParamsPath(paramsPath) {
+    // makes fetch request using given params.  If there is no data to render on the page, do nothing!
     fetch(baseURL+paramsPath)
         .then(resp => resp.json())
         .then(json => {
+            if (json.items === null) {return}
+            changePageNumber(json.page)
             createAndAppendItemsFromCollection(json.items)
         })
 }
 
+// function createPathFromSearchFields(form) {
+//     let path = 'items'
+//     const query = form.query.value.replace(/&/g, '%26').split(' ').join('+')
+//     const category = form.category.value.replace(/&/g, '%26').split(' ').join('+')
+//     path += `?query=${query}&category=${category}`
+//     return path
+// }
+
 function createPathFromSearchFields(form) {
+    // UGLY AF. takes in the form, returns a compatible path with category and query if query is present
+    const arr = []
     let path = 'items'
-    const query = form.query.value.replace(/&/g, '%26').split(' ').join('+')
-    const category = form.category.value.replace(/&/g, '%26').split(' ').join('+')
-    path += `?query=${query}&category=${category}`
-    return path
+    if (form.query.value !== "") {arr.push(`query=${form.query.value.replace(/&/g, '%26').split(' ').join('+')}`)}
+    arr.push(`category=${form.category.value.replace(/&/g, '%26').split(' ').join('+')}`)
+    return path + '?' + arr.join('&')
+}
+
+function changePage(event) {
+    if (event.target.tagName !== 'BUTTON') {return}
+    const pageNumber = parseInt(event.target.parentNode.dataset.page)
+    if (event.target.textContent === "Previous") {
+        changePagePrevious(pageNumber)
+    } else if (event.target.textContent === "Next") {
+        changePageNext(pageNumber)
+    }
+    // const form = document.getElementById('search-form')
+    // let path = createPathFromSearchFields(form)
+    // path += `&page=${parseInt(event.target.parentNode.dataset.page)+1}`
+    // fetchItemsWithParamsPath(path)
+}
+
+function changePagePrevious(pageNumber) {
+    // unless the page is currently 1, allow to go to the previous page
+    if (pageNumber === 1) {return}
+
+    const form = document.getElementById('search-form')
+    let path = createPathFromSearchFields(form)
+    path += `&page=${pageNumber - 1}`
+    fetchItemsWithParamsPath(path)
+}
+
+function changePageNext(pageNumber) {
+    // send request to go to the next page
+
+    const form = document.getElementById('search-form')
+    let path = createPathFromSearchFields(form)
+    path += `&page=${pageNumber + 1}`
+    fetchItemsWithParamsPath(path)
 }
 
 // ----- LOGIN METHODS ----- //
@@ -168,6 +212,10 @@ function loginButtonClick(event) {
 }
 
 // ----- MISC HELPER METHODS ----- //
+function changePageNumber(pageNumber) {
+    document.getElementById('page-buttons').dataset.page = pageNumber
+}
+
 function loadPage() {
     addLoginToPage()
     getSearchBarCategories()
@@ -197,6 +245,7 @@ function addMouseEventToShowAddToCartButton() {
 document.getElementById('category-select').addEventListener('change', categoryChangeEvent)
 document.getElementById('search-form').addEventListener('submit', searchEvent)
 document.getElementById('login-container').addEventListener('click', loginButtonClick)
+document.getElementById('page-buttons').addEventListener('click', changePage)
 
 // ACCESS POINT FUNCTIONS
 loadPage()
