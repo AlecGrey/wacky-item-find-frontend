@@ -1,11 +1,10 @@
 // ----- NEW GAME FUNCTIONS ----- //
 function startNewGame(event) {
-    // resets game environment, fetches game list, etc
-    resetGameEnvironment()
+    // resets game environment, fetches game list, runs game
     toggleGameItemContainerDisplay()
     fetchSampleItem()
     allowCartItemsToBeAdded()
-    startGame()
+    startGame() // includes game end functionality
 }
 
 function startGame() {
