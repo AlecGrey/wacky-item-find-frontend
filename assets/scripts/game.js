@@ -17,7 +17,7 @@ function toggleGameDisplay() {
 
 function startGame() {
     // sets timer using setInterval function, sets timeout for gameEnd()
-    const gameTime = 3 // seconds
+    const gameTime = 60 // seconds
     timer(gameTime * 10) // returns gameEnd() within
 }
 
