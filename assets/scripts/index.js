@@ -181,30 +181,27 @@ function changePageNext(pageNumber) {
 }
 
 // ----- FETCHING CARTS ----- //
-function fetchNewCartForGuest() {
-    const configObject = generateGuestCartConfigObject()
-    fetch(baseURL+'carts', configObject)
+function fetchNewCart() {
+    // const configObject = generateCartConfigObject()
+    fetch(baseURL+'carts', {method: 'POST'})
         .then(resp => resp.json())
         .then(createAndAppendCartToHead)
 }
 
-function generateGuestCartConfigObject() {
-    return {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-            user_id: null
-        })
-    }
-}
+// function generateCartConfigObject() {
+//     return {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json',
+//             'Accept': 'application/json'
+//         }
+//     }
+// }
 
 function createAndAppendCartToHead(json) {
     const h4 = document.createElement('h4')
     h4.id = 'cart'
-    h4.className = 'head-icon'
+    h4.className = 'd-none'
     h4.textContent = `Cart (${json.items.length})`
     h4.dataset.cartId = json.id
     h4.dataset.gameSkips = 0
@@ -231,10 +228,8 @@ function addItemToCart(event) {
 
 function postItemToCartByItemId(itemId) {
     // grabs cart ID, generates post object, and posts to server
-    console.log('postItemToCartByItemId');
     const cartId = document.getElementById('cart').dataset.cartId
     const configObject = generateNewCartItemConfigObject({cartId: cartId, itemId: itemId})
-    console.log(configObject);
     fetch(baseURL+'carts/add', configObject)
         .then(resp => resp.json())
         .then(updateCartFromJSON)
@@ -284,24 +279,40 @@ function loginButtonClick(event) {
     if (event.target.tagName !== 'BUTTON') {return}
 
     switch (event.target.dataset.type) {
-        case 'guest':
+        case 'join':
             //Fetches a cart for a guest, toggles visibility of search bar and items DIVs
-            fetchNewCartForGuest()
-            toggleStartGameButton()
+            const userName = event.target.parentNode.children[0].value
+            fetchNewUser(userName)
+            fetchNewCart()
+            appendUserToUserDisplay(userName)
+            toggleUserDivDisplay()
             toggleLoginContainerDisplay()
-            toggleSearchFormContainerDisplay()  
-            toggleItemsContainerDisplay() 
+            toggleStartGameButton()
+            // toggleGameDisplay()
             break
-        //set other cases for login/sign-up when they're created
         default:
             break
     }
 }
 
 // ----- TOGGLE DISPLAYS ON PAGE ----- //
+function toggleCartDisplay() {
+    const cart = document.getElementById('cart')
+    if (cart.className === 'd-none') {
+        cart.className = 'head-icon'
+    } else {cart.className = 'd-none'}
+}
+
+function toggleUserDivDisplay() {
+    const userDiv = document.getElementById('user-div')
+    if (userDiv.className === 'd-none') {
+        userDiv.className = ''
+    } else {userDiv.className = 'd-none'}
+}
+
 function toggleTimerDisplay() {
     const timer = document.getElementById('timer')
-    console.log(timer);
+    // console.log(timer);
     if (timer.className === 'd-none') {
         timer.className = 'd-block head-icon'
     } else {timer.className = 'd-none'}
@@ -309,12 +320,18 @@ function toggleTimerDisplay() {
 
 function toggleTimesUpDisplay() {
     const timesUpMessage = document.getElementById('times-up')
-    console.log(timesUpMessage);
+    // console.log(timesUpMessage);
     if (timesUpMessage.className === 'd-none') {
         timesUpMessage.className = 'd-block head-icon'
     } else {timesUpMessage.className = 'd-none'}
 }
 
+function toggleGameDivDisplay() {
+    const gameDisplay = document.getElementById('game-div')
+    if (gameDisplay.className === 'd-none') {
+        gameDisplay.className = 'd-block'
+    } else {gameDisplay.className = 'd-none'}
+}
 
 function toggleGameItemContainerDisplay() {
     const gameItemContainer = document.getElementById('game-item-container')
@@ -390,6 +407,7 @@ function hideCartButton(event) {
 function allowCartItemsToBeAdded() {
     document.getElementById('items').addEventListener('click', addItemToCart)
 }
+
 function addEventsToPage() {
     document.getElementById('category-select').addEventListener('change', categoryChangeEvent)
     document.getElementById('search-form').addEventListener('submit', searchEvent)
@@ -400,7 +418,7 @@ function addEventsToPage() {
 
 // ----- SINGLE ACCESS POINT FUNCTION ----- //
 function loadPage() {
-    addLoginToPage()
+    // addLoginToPage()
     getSearchBarCategories()
     addItemsToPage()
     addEventsToPage()

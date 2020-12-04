@@ -1,28 +1,47 @@
 // ----- NEW GAME FUNCTIONS ----- //
 function startNewGame(event) {
     // resets game environment, fetches game list, runs game
-    toggleGameItemContainerDisplay()
+    toggleGameDisplay()
     fetchSampleItem()
     allowCartItemsToBeAdded()
     startGame() // includes game end functionality
 }
 
+function toggleGameDisplay() {
+    toggleGameDivDisplay()
+    toggleTimerDisplay()
+    toggleUserDivDisplay()
+    toggleStartGameButton()
+    toggleCartDisplay()
+}
+
 function startGame() {
     // sets timer using setInterval function, sets timeout for gameEnd()
-    const gameTime = 30 // seconds
-    toggleTimerDisplay()
-    timer(gameTime * 10) // 30 second timer
+    const gameTime = 3 // seconds
+    timer(gameTime * 10) // returns gameEnd() within
 }
 
 function gameEnd() {
     // game end functionality, tied to a setTimeout function
-    toggleTimerDisplay()
-    toggleTimesUpDisplay()
+    toggleGameDisplay()
+    resetFormFields()
     fetchPostGameScore()
+    // resetGameEnvironment()
 }
 
 function resetGameEnvironment() {
-    // add functionality to clean the game environment for a new game 
+    // add functionality to clean the game environment for a new game
+    emptyCart()
+}
+
+function emptyCart() {
+    const cart = document.getElementById('cart')
+    fetch(baseURL+`carts/${cart.dataset.cartId}/empty`)
+        .then(resp => resp.json())
+        .then(json => {
+            console.log(json.message);
+            cart.textContent = `Cart (0)`
+        })
 }
 
 function fetchSampleItem() {
@@ -41,20 +60,21 @@ function displayGameItem(json) {
 function fetchPostGameScore() {
     // take the cartId and number of skips and send to DB to generate a score
     const cart = document.getElementById('cart')
+    const userId = parseInt(document.getElementById('main').dataset.userId)
     const cartId = parseInt(cart.dataset.cartId)
     const skips = parseInt(cart.dataset.gameSkips)
     // debugger
-    const configObject = generateScoreConfigObject(cartId, skips)
+    const configObject = generateScoreConfigObject(userId, cartId, skips)
 
     fetch(baseURL + 'scores', configObject)
         .then(resp => resp.json())
         .then(json => {
-            // console.log(json);
-            alert(`${json.name} scored ${json.score} points!`)
+            alert(`${json.user} scored ${json.score} points!`)
+            resetGameEnvironment()
         })
 }
 
-function generateScoreConfigObject(cartId, skips) {
+function generateScoreConfigObject(userId, cartId, skips) {
     return {
         method: 'POST',
         headers: {
@@ -62,6 +82,7 @@ function generateScoreConfigObject(cartId, skips) {
             'Accept': 'application/json'
         },
         body: JSON.stringify({
+            user_id: userId,
             cart_id: cartId,
             skips: skips
         })
@@ -83,4 +104,8 @@ function timer(x) {
 function skipGameItem(event) {
     document.getElementById('cart').dataset.gameSkips++
     fetchSampleItem()
+}
+
+function resetFormFields() {
+    document.getElementById('search-form').reset()
 }
