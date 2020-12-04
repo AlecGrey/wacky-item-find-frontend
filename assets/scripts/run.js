@@ -1,0 +1,2 @@
+// ----- SINGLE ACCESS POINT ----- //
+loadPage()

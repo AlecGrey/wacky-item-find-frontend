@@ -11,13 +11,19 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel='stylesheet' href='./assets/stylesheets/style.css'>
 
-        <!-- SCRIPT SHEETS -->
+        <!-- SCRIPT SHEETS: run.js must go last! -->
+        <script defer src='./assets/scripts/game.js'></script>
         <script defer src="./assets/scripts/index.js"></script>
+        <script defer src='./assets/scripts/run.js'></script>
     </head>
     <body>
         <!-- PAGE HEAD -->
         <div id="head">
+            <div id='left-head' class='d-flex justify-content-start'></div>
             <h1 id="site-title">Wacky Item Game!</h1>
+            <h4 id='timer' class='d-none'>0.0</h4>
+            <h4 id='times-up' class='d-none'>Time's Up!</h4>
+            <h4 id='game-start' class='d-none'>Start Game</h4>
         </div>
 
         <!-- PAGE BODY -->
@@ -39,5 +45,6 @@
         </div>
         <div id="items" class='d-none'></div>
         <div id='login-container' class='d-flex justify-content-center'></div>
+        <div id='game-item-container' class='d-none'></div>
     </body>
 </html>
