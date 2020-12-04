@@ -79,7 +79,12 @@ function createGameItemDiv(itemObject) {
     p.textContent = 'Find this item!'
     p.className = 'game-card-text'
 
-    card.append(itemImage, p)
+    const skip = document.createElement('button')
+    skip.textContent = 'skip'
+    skip.className = 'skip-button'
+
+    card.append(itemImage, p, skip)
+    skip.addEventListener('click', skipGameItem)
     return card
 }
 
@@ -202,6 +207,7 @@ function createAndAppendCartToHead(json) {
     h4.className = 'head-icon'
     h4.textContent = `Cart (${json.items.length})`
     h4.dataset.cartId = json.id
+    h4.dataset.gameSkips = 0
     document.getElementById('left-head').appendChild(h4)
 }
 

@@ -19,7 +19,7 @@ function gameEnd() {
     // game end functionality, tied to a setTimeout function
     toggleTimerDisplay()
     toggleTimesUpDisplay()
-    // alert(finalScore())
+    fetchPostGameScore()
 }
 
 function resetGameEnvironment() {
@@ -39,6 +39,36 @@ function displayGameItem(json) {
     gameCardContainer.appendChild(gameCard)
 }
 
+function fetchPostGameScore() {
+    // take the cartId and number of skips and send to DB to generate a score
+    const cart = document.getElementById('cart')
+    const cartId = parseInt(cart.dataset.cartId)
+    const skips = parseInt(cart.dataset.gameSkips)
+    // debugger
+    const configObject = generateScoreConfigObject(cartId, skips)
+
+    fetch(baseURL + 'scores', configObject)
+        .then(resp => resp.json())
+        .then(json => {
+            // console.log(json);
+            alert(`${json.name} scored ${json.score} points!`)
+        })
+}
+
+function generateScoreConfigObject(cartId, skips) {
+    return {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            cart_id: cartId,
+            skips: skips
+        })
+    }
+}
+
 // ----- HELPER METHODS ----- //
 function timer(x) {
     //x should be in deciseconds, aka 10 per second
@@ -50,3 +80,8 @@ function timer(x) {
 
     return setTimeout(() => {timer(x - 1)}, 100)
 } 
+
+function skipGameItem(event) {
+    document.getElementById('cart').dataset.gameSkips++
+    fetchSampleItem()
+}
