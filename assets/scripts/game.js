@@ -8,9 +8,10 @@ function startNewGame(event) {
 }
 
 function toggleGameDisplay() {
-    toggleGameDivDisplay()
-    toggleTimerDisplay()
     toggleUserDivDisplay()
+    toggleGameDivDisplay()
+    toggleLeaderboardButtonDisplay()
+    toggleTimerDisplay()
     toggleStartGameButton()
     toggleCartDisplay()
 }
@@ -96,9 +97,9 @@ function timer(x) {
         return gameEnd()
     }
     // modify element with updated time
-    document.getElementById('timer').textContent = `${Math.floor(x / 10)}:${x % 10}`
+    document.getElementById('timer').textContent = `${Math.floor(x / 10)}.${x % 10}`
 
-    return setTimeout(() => {timer(x - 1)}, 100)
+    return setTimeout(() => {timer(x - 1)}, 99)
 } 
 
 function skipGameItem(event) {

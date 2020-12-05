@@ -286,6 +286,7 @@ function loginButtonClick(event) {
             fetchNewCart()
             appendUserToUserDisplay(userName)
             toggleUserDivDisplay()
+            toggleLeaderboardButtonDisplay()
             toggleLoginContainerDisplay()
             toggleStartGameButton()
             // toggleGameDisplay()
@@ -296,6 +297,13 @@ function loginButtonClick(event) {
 }
 
 // ----- TOGGLE DISPLAYS ON PAGE ----- //
+function toggleLeaderboardButtonDisplay() {
+    const leaderboard = document.getElementById('leaderboard')
+    if (leaderboard.className === 'd-none') {
+        leaderboard.className = 'head-icon'
+    } else {leaderboard.className = 'd-none'}
+}
+
 function toggleCartDisplay() {
     const cart = document.getElementById('cart')
     if (cart.className === 'd-none') {
