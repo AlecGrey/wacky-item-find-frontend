@@ -44,9 +44,6 @@
     padding: 20px 20px;
     margin: auto;
 }
-.head-icon:hover {
-    cursor: pointer;
-}
 #head {
     grid-template-columns: 33% 34% 13% 20%;
     grid-template-rows: auto;
@@ -125,7 +122,50 @@
 }
 
 #user-welcome {
-    margin: 2rem 0 0 0;
+    margin: 2rem 0;
     padding: 2rem 2rem;
     position: relative;
+    box-shadow: 0 0 5px rgba(0,0,0,.05), 2px 2px 5px rgba(0,0,0,.1)
+}
+
+#quit-game:active, #homepage-button:active, #leaderboard-button:active, #game-start:active {
+    font-size: 30px;
+    background-color: rgb(71, 199, 128);
+}
+
+#quit-game:hover, #homepage-button:hover, #leaderboard-button:hover, #game-start:hover {
+    cursor: pointer;
+}
+
+#leaderboard-div {
+    margin: 20px 80px;
+}
+
+#leaderboard-div > table {
+    border-radius: 5px;
+    width: 70%;
+    margin: 20px auto;
+    background-color: #f8f9fa;
+    box-shadow: 0 0 5px rgba(0,0,0,.05), 2px 2px 5px rgba(0,0,0,.1)
+}
+
+#change-name-div {
+    display: grid;
+    grid-template-columns: 30% 50% 20%;
+    grid-template-rows: auto;
+    grid-template-areas:
+        'button form .';
+}
+
+#change-name-div > .btn {
+    grid-area: button;
+    margin: 0 5% 0 0;
+}
+
+#change-name-div > form {
+    grid-area: form;
+}
+
+#change-name-div > form > * {
+    margin: auto 2%;
 }

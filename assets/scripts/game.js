@@ -13,6 +13,7 @@ function toggleGameDisplay() {
     toggleLeaderboardButtonDisplay()
     toggleTimerDisplay()
     toggleStartGameButton()
+    toggleQuitGameButton()
     toggleCartDisplay()
 }
 
@@ -28,6 +29,12 @@ function gameEnd() {
     resetFormFields()
     fetchPostGameScore()
     // resetGameEnvironment()
+}
+
+function quitGameEarly() {
+    // does game end functionality, minus the score posting
+    toggleGameDisplay()
+    resetFormFields()
 }
 
 function resetGameEnvironment() {
@@ -93,6 +100,7 @@ function generateScoreConfigObject(userId, cartId, skips) {
 // ----- HELPER METHODS ----- //
 function timer(x) {
     //x should be in deciseconds, aka 10 per second
+    if (document.getElementById('timer').className === 'd-none') {return}
     if (x < 0) {
         return gameEnd()
     }

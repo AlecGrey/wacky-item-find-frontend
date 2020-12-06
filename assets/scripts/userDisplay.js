@@ -2,8 +2,9 @@ function appendUserToUserDisplay(name) {
     // adds a jumbotron div with user welcome and page options
     const userDisplay = document.getElementById('user-display')
     const welcomeDiv = createNewWelcomeDiv(name)
+    const changeNameDiv = createChangeUserNameDiv()
 
-    userDisplay.appendChild(welcomeDiv)
+    userDisplay.append(welcomeDiv, changeNameDiv)
 }
 
 function createNewWelcomeDiv(name) {
@@ -36,4 +37,82 @@ function createNewWelcomeDiv(name) {
 
     jumbotron.append(welcomeHeader, lead, hr, h4, instructions, disclaimer)
     return jumbotron
+}
+
+function createChangeUserNameDiv() {
+    const changeNameDiv = document.createElement('div')
+    changeNameDiv.id = 'change-name-div'
+
+    const button = document.createElement('button')
+    button.className = 'btn btn-secondary'
+    button.textContent = 'Change Username'
+
+    const form = document.createElement('form')
+    form.id = 'change-username-form'
+    form.className = 'd-none'
+
+    const input = document.createElement('input')
+    input.type = 'text'
+
+    const submit = document.createElement('input')
+    submit.className = 'btn btn-secondary'
+    submit.type = 'submit'
+
+    button.addEventListener('click', toggleFormDisplayEvent)
+    form.addEventListener('submit', changeUsername)
+
+    form.append(input, submit)
+    changeNameDiv.append(button, form)
+
+    return changeNameDiv
+}
+
+function toggleFormDisplayEvent(event) {
+    toggleFormDisplay(event.target)
+}
+
+function toggleFormDisplay(btn) {
+    const button = btn
+    const form = document.getElementById('change-username-form')
+    if (form.className === 'd-none') {
+        form.className = 'd-block'
+        button.textContent = 'Cancel'
+    } else {
+        form.className = 'd-none'
+        button.textContent = 'Change Username'
+    }
+}
+
+
+
+function changeUsername(event) {
+    event.preventDefault()
+    const userId = document.getElementById('main').dataset.userId
+    const newUsername = event.target.children[0].value
+    const configObject = generatePatchObjectForNewUsername(newUsername)
+    // debugger
+    fetch(baseURL+'users/'+userId, configObject)
+        .then(resp => resp.json())
+        .then(updateUserPage)
+}
+
+function generatePatchObjectForNewUsername(username) {
+    return {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            name: username
+        })
+    }
+}
+
+function updateUserPage(json) {
+    // changes the welcome message, hides the form, and resets the form field
+    const changeNameDiv = document.getElementById('change-name-div')
+    toggleFormDisplay(changeNameDiv.children[0])
+    document.querySelector('#user-welcome > h1').textContent = `Welcome, ${json.name}!`
+    changeNameDiv.children[1].reset()
 }

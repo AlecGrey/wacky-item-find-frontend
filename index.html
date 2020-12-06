@@ -13,6 +13,7 @@
 
         <!-- SCRIPT SHEETS: run.js must go last! -->
         <script defer src='./assets/scripts/game.js'></script>
+        <script defer src='./assets/scripts/leaderboard.js'></script>
         <script defer src='./assets/scripts/newUser.js'></script>
         <script defer src='./assets/scripts/userDisplay.js'></script>
         <script defer src="./assets/scripts/index.js"></script>
@@ -22,7 +23,9 @@
         <!-- PAGE HEAD -->
         <div id="head">
             <div id='left-head' class='d-flex justify-content-start'>
-                <h4 id='leaderboard' class='d-none'>Leaderboard</h4>
+                <h4 id='quit-game' class='d-none'>Quit Game</h4>
+                <h4 id='leaderboard-button' class='d-none'>Leaderboard</h4>
+                <h4 id='homepage-button' class='d-none'>Homepage</h4>
             </div>
             <h1 id="site-title">Wacky Item Game!</h1>
             <h4 id='timer' class='d-none'>0.0</h4>
@@ -57,6 +60,19 @@
             </div>
             <div id='user-div' class='d-none'>
                 <div id='user-display' class='d-flex justify-content-center flex-column'></div>
+            </div>
+            <div id='leaderboard-div' class='d-none'>
+                <h1 class="display-3 text-center">Leaderboard</h1>
+                <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Score</th>
+                        <th scope="col">User</th>
+                      </tr>
+                    </thead>
+                    <tbody id='leaderboard-scores'></tbody>
+                </table>
             </div>
         </div>
     </body>

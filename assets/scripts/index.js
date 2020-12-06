@@ -218,6 +218,7 @@ function addItemToCart(event) {
 
     if (gameItemId === clickedItemId) {
         postItemToCartByItemId(event.target.parentNode.dataset.itemId)
+        resetFormFields()
         fetchSampleItem()
     } else {
         // add wrongg-item behavior
@@ -297,8 +298,22 @@ function loginButtonClick(event) {
 }
 
 // ----- TOGGLE DISPLAYS ON PAGE ----- //
+function toggleQuitGameButton() {
+    const quitButton = document.getElementById('quit-game')
+    if (quitButton.className === 'd-none') {
+        quitButton.className = 'head-icon'
+    } else {quitButton.className = 'd-none'}
+}
+
+function toggleHomepageButtonDisplay() {
+    const homepage = document.getElementById('homepage-button')
+    if (homepage.className === 'd-none') {
+        homepage.className = 'head-icon'
+    } else {homepage.className = 'd-none'}
+}
+
 function toggleLeaderboardButtonDisplay() {
-    const leaderboard = document.getElementById('leaderboard')
+    const leaderboard = document.getElementById('leaderboard-button')
     if (leaderboard.className === 'd-none') {
         leaderboard.className = 'head-icon'
     } else {leaderboard.className = 'd-none'}
@@ -417,11 +432,22 @@ function allowCartItemsToBeAdded() {
 }
 
 function addEventsToPage() {
+    // changes categories of display items
     document.getElementById('category-select').addEventListener('change', categoryChangeEvent)
+    // changes display items based on detailed search
     document.getElementById('search-form').addEventListener('submit', searchEvent)
-    document.getElementById('login-container').addEventListener('click', loginButtonClick)
+    // page next/previous button clicks
     document.getElementById('page-buttons').addEventListener('click', changePage)
+    // login submission
+    document.getElementById('login-container').addEventListener('click', loginButtonClick)
+    // start a new game when button is clicked
     document.getElementById('game-start').addEventListener('click', startNewGame)
+    // view the leaderboard page
+    document.getElementById('leaderboard-button').addEventListener('click', displayLeaderboardPage)
+    // returns to homepage from leaderboard page
+    document.getElementById('homepage-button').addEventListener('click', toggleBetweenLeaderboardPageAndUserPage)
+    // quit game button ends the game early
+    document.getElementById('quit-game').addEventListener('click', quitGameEarly)
 }
 
 // ----- SINGLE ACCESS POINT FUNCTION ----- //
