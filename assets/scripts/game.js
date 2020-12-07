@@ -2,7 +2,6 @@
 function startNewGame(event) {
     // resets game environment, fetches game list, runs game
     toggleGameDisplay()
-    fetchSampleItem()
     allowCartItemsToBeAdded()
     startGame() // includes game end functionality
 }
@@ -79,8 +78,14 @@ function hideGameItem(json) {
 }
 
 function getNextGameItem() {
+    // removes current item, displays next item, and fetches another item to hide
     const gameCardContainer = document.getElementById('game-item-container')
-    gameCardContainer.removeChild(gameCardContainer.firstChild)
+    const currentCard = gameCardContainer.children[0]
+    const nextCard = gameCardContainer.children[1]
+
+    gameCardContainer.removeChild(currentCard)
+    nextCard.className = 'div-card text-center'
+    fetchAndHideItem()
 }
 
 
@@ -131,7 +136,7 @@ function timer(x) {
 
 function skipGameItem(event) {
     document.getElementById('cart').dataset.gameSkips++
-    fetchSampleItem()
+    getNextGameItem()
 }
 
 function resetFormFields() {

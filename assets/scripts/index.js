@@ -66,8 +66,7 @@ function createGameItemDiv(itemObject) {
     const card = document.createElement('div')
     card.dataset.itemId = itemObject.id
     card.id = 'game-item'
-    card.className = 'div-card'
-    card.className += ' text-center'
+    card.className = 'div-card text-center'
 
     const itemImage = document.createElement('img')
     itemImage.src = itemObject.img_url
@@ -219,9 +218,9 @@ function addItemToCart(event) {
     if (gameItemId === clickedItemId) {
         postItemToCartByItemId(event.target.parentNode.dataset.itemId)
         resetFormFields()
-        fetchSampleItem()
+        getNextGameItem()
     } else {
-        // add wrongg-item behavior
+        // add wrong-item behavior
         alert('Thats the wrong item! :O')
     }
     
@@ -456,4 +455,6 @@ function loadPage() {
     getSearchBarCategories()
     addItemsToPage()
     addEventsToPage()
+    fetchSampleItem()
+    fetchAndHideItem()
 }
