@@ -1,20 +1,25 @@
-function appendUserToUserDisplay(name) {
+function appendUsernameToWelcomeMessage(name) {
     // adds a jumbotron div with user welcome and page options
-    const userDisplay = document.getElementById('user-display')
-    const welcomeDiv = createNewWelcomeDiv(name)
-    const changeNameDiv = createChangeUserNameDiv()
-
-    userDisplay.append(welcomeDiv, changeNameDiv)
+    document.getElementById('welcome-header').textContent = `Welcome, ${name}!`
 }
 
-function createNewWelcomeDiv(name) {
+function createUserDisplayContent() {
+    const userDisplay = document.getElementById('user-display')
+    const welcomeDiv = createNewWelcomeDiv()
+    const changeNameDiv = createChangeUserNameDiv()
+    const deleteUserDiv = createDeleteUserDiv()
+    
+    userDisplay.append(welcomeDiv, changeNameDiv, deleteUserDiv)
+}
+
+function createNewWelcomeDiv() {
     const jumbotron = document.createElement('div')
     jumbotron.id = 'user-welcome'
     jumbotron.className = 'jumbotron'
 
     const welcomeHeader = document.createElement('h1')
     welcomeHeader.className = "display-4"
-    welcomeHeader.textContent = `Welcome, ${name}!`
+    welcomeHeader.id = 'welcome-header'
 
     const lead = document.createElement('p')
     lead.className = 'lead'
@@ -67,6 +72,52 @@ function createChangeUserNameDiv() {
     return changeNameDiv
 }
 
+function createDeleteUserDiv() {
+    const div = document.createElement('div')
+    div.id = 'delete-user-div'
+
+    const deleteButton = document.createElement('button')
+    deleteButton.textContent = 'Delete User'
+    deleteButton.className = 'btn btn-secondary'
+    deleteButton.id = 'delete-user-button'
+
+    const yes = document.createElement('button')
+    yes.textContent = 'Yes'
+    yes.className = 'd-none'
+    yes.id = 'delete-yes'
+
+    const no = document.createElement('button')
+    no.textContent = 'No'
+    no.className = 'd-none'
+    no.id = 'delete-no'
+
+    deleteButton.addEventListener('click', areYouSureEvent)
+    yes.addEventListener('click', deleteUserFromDatabase)
+    no.addEventListener('click', cancelDeleteUser)
+
+    div.append(deleteButton, yes, no)
+    return div
+}
+
+// ----- Event handling functions ----- //
+
+function areYouSureEvent(event) {
+    toggleDeleteConfirmationButtonsDisplay()
+}
+
+function deleteUserFromDatabase(event) {
+    toggleDeleteConfirmationButtonsDisplay()
+    userId = document.getElementById('main').dataset.userId
+
+    fetch(baseURL+'users/'+userId, {method: 'DELETE'})
+        .then(resp => resp.json())
+        .then(returnToLogin) //method found in index.js 
+}
+
+function cancelDeleteUser(event) {
+    toggleDeleteConfirmationButtonsDisplay()
+}
+
 function toggleFormDisplayEvent(event) {
     toggleFormDisplay(event.target)
 }
@@ -83,7 +134,21 @@ function toggleFormDisplay(btn) {
     }
 }
 
+function toggleDeleteConfirmationButtonsDisplay() {
+    yesButton = document.getElementById('delete-yes')
+    noButton = document.getElementById('delete-no')
+    deleteButton = document.getElementById('delete-user-button')
 
+    if (yesButton.className === 'd-none') {
+        yesButton.className = 'btn btn-secondary'
+        noButton.className = 'btn btn-secondary'
+        deleteButton.textContent = 'Are You Sure?'
+    } else {
+        yesButton.className = 'd-none'
+        noButton.className = 'd-none'
+        deleteButton.textContent = 'Delete User'
+    }
+}
 
 function changeUsername(event) {
     event.preventDefault()

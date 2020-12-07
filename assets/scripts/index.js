@@ -207,6 +207,10 @@ function createAndAppendCartToHead(json) {
     document.getElementById('left-head').appendChild(h4)
 }
 
+function removeCartFromHead() {
+    document.getElementById('left-head').removeChild(document.getElementById('cart'))
+}
+
 // ----- ADDING ITEMS TO CART ----- //
 function addItemToCart(event) {
     // responds to item DIV click event and decides whether to add an item to the cart
@@ -284,7 +288,7 @@ function loginButtonClick(event) {
             const userName = event.target.parentNode.children[0].value
             fetchNewUser(userName)
             fetchNewCart()
-            appendUserToUserDisplay(userName)
+            appendUsernameToWelcomeMessage(userName)
             toggleUserDivDisplay()
             toggleLeaderboardButtonDisplay()
             toggleLoginContainerDisplay()
@@ -294,6 +298,15 @@ function loginButtonClick(event) {
         default:
             break
     }
+}
+
+function returnToLogin() {
+    toggleUserDivDisplay()
+    toggleLeaderboardButtonDisplay()
+    toggleStartGameButton()
+    toggleLoginContainerDisplay()
+    removeCartFromHead()
+    removeUserIdFromMainDiv()
 }
 
 // ----- TOGGLE DISPLAYS ON PAGE ----- //
@@ -402,6 +415,10 @@ function hideCartButtonFromDiv(div) {
 }
 
 // ----- MISC HELPER METHODS ----- //
+function removeUserIdFromMainDiv() {
+    document.getElementById('main').dataset.userId = null
+}
+
 function changePageNumber(pageNumber) {
     document.getElementById('page-buttons').dataset.page = pageNumber
 }
@@ -452,6 +469,7 @@ function addEventsToPage() {
 // ----- SINGLE ACCESS POINT FUNCTION ----- //
 function loadPage() {
     // addLoginToPage()
+    createUserDisplayContent()
     getSearchBarCategories()
     addItemsToPage()
     addEventsToPage()
