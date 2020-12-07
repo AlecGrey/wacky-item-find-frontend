@@ -131,7 +131,7 @@ function fetchItemsWithParamsPath(paramsPath) {
     fetch(baseURL+paramsPath)
         .then(resp => resp.json())
         .then(json => {
-            if (json.items === null) {return}
+            if (json.items === null || json.items.length === 0) {return}
             changePageNumber(json.page)
             createAndAppendItemsFromCollection(json.items)
         })
