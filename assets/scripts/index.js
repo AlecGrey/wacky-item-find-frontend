@@ -258,58 +258,6 @@ function generateNewCartItemConfigObject({cartId, itemId}) {
     }
 }
 
-// ----- LOGIN METHODS ----- //
-function addLoginToPage() {
-    // create login div and add to login-container div
-    const loginDiv = document.getElementById('login-container')
-
-    const div = createLoginDiv()
-    loginDiv.appendChild(div)
-    // loginDiv.addEventListener('click', loginButtonClick)
-}
-
-function createLoginDiv() {
-    // add all login features to a new div and return div
-    const div = document.createElement('div')
-    const button = document.createElement('button')
-    button.className = 'btn btn-secondary'
-    button.dataset.type = 'guest'
-    button.textContent = ' Play as Guest '
-    div.appendChild(button)
-    return div
-}
-
-function loginButtonClick(event) {
-    if (event.target.tagName !== 'BUTTON') {return}
-
-    switch (event.target.dataset.type) {
-        case 'join':
-            //Fetches a cart for a guest, toggles visibility of search bar and items DIVs
-            const userName = event.target.parentNode.children[0].value
-            fetchNewUser(userName)
-            fetchNewCart()
-            appendUsernameToWelcomeMessage(userName)
-            toggleUserDivDisplay()
-            toggleLeaderboardButtonDisplay()
-            toggleLoginContainerDisplay()
-            toggleStartGameButton()
-            fetchAndUpdateCurrentLeaderboard()
-            // toggleGameDisplay()
-            break
-        default:
-            break
-    }
-}
-
-function returnToLogin() {
-    toggleUserDivDisplay()
-    toggleLeaderboardButtonDisplay()
-    toggleStartGameButton()
-    toggleLoginContainerDisplay()
-    removeCartFromHead()
-    removeUserIdFromMainDiv()
-}
-
 // ----- TOGGLE DISPLAYS ON PAGE ----- //
 function toggleQuitGameButton() {
     const quitButton = document.getElementById('quit-game')
@@ -386,7 +334,7 @@ function toggleStartGameButton() {
 function toggleLoginContainerDisplay() {
     const loginContainer = document.getElementById('login-container')
     if (loginContainer.className === 'd-none') {
-        loginContainer.className = 'd-flex justify-content-center'
+        loginContainer.className = 'd-flex justify-content-center flex-column'
     } else {loginContainer.className = 'd-none'}
 }
 
@@ -456,7 +404,7 @@ function addEventsToPage() {
     // page next/previous button clicks
     document.getElementById('page-buttons').addEventListener('click', changePage)
     // login submission
-    document.getElementById('login-container').addEventListener('click', loginButtonClick)
+    document.getElementById('login-buttons').addEventListener('click', loginButtonClick)
     // start a new game when button is clicked
     document.getElementById('game-start').addEventListener('click', startNewGame)
     // view the leaderboard page
@@ -465,11 +413,13 @@ function addEventsToPage() {
     document.getElementById('homepage-button').addEventListener('click', toggleBetweenLeaderboardPageAndUserPage)
     // quit game button ends the game early
     document.getElementById('quit-game').addEventListener('click', quitGameEarly)
+    // events to login and signup
+    addLoginEvent()
+    addSignupEvent()
 }
 
 // ----- SINGLE ACCESS POINT FUNCTION ----- //
 function loadPage() {
-    // addLoginToPage()
     createUserDisplayContent()
     getSearchBarCategories()
     addItemsToPage()

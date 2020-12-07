@@ -97,13 +97,30 @@
     background-color: lightgray;
     border-radius: 0 0 10px 10px;
 }
+
 .game-card-text {
     padding: 10px 0px 0px 0px;
     margin-bottom: auto;
 }
-#login-container > * {
+
+#login-buttons {
     margin: 5px;
 }
+
+#join-site-forms {
+    margin: 2% auto;
+    width: 50%;
+}
+
+#login-buttons > * {
+    margin: 0 10px;
+}
+
+form > h4 {
+    margin: 0 0 3% 0;
+    color: #3a3a3a;
+}
+
 #user-div {
     display: grid;
     grid-template-columns: 20% 60% 20%;
@@ -111,9 +128,11 @@
     grid-template-areas:
         '. user-display .';
 }
+
 #user-display {
     grid-area: user-display;
 }
+
 .disclaimer {
     padding: 0 15px 0 0;
     font-size: 6px;

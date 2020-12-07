@@ -12,6 +12,7 @@
         <link rel='stylesheet' href='./assets/stylesheets/style.css'>
 
         <!-- SCRIPT SHEETS: run.js must go last! -->
+        <script defer src='./assets/scripts/login.js'></script>
         <script defer src='./assets/scripts/game.js'></script>
         <script defer src='./assets/scripts/leaderboard.js'></script>
         <script defer src='./assets/scripts/newUser.js'></script>
@@ -35,9 +36,33 @@
 
         <!-- PAGE BODY -->
         <div id='main'>
-            <div id='login-container' class='d-flex justify-content-center'>
-                <input class='field' type='text' name='username'>
-                <button id='login' class="btn btn-secondary" data-type='join'>JOIN!</button>
+            <div id='login-container' class='d-flex justify-content-center flex-column'>
+                <div id='login-buttons' class='d-flex justify-content-center'>
+                    <button id='login-button' class="btn btn-secondary" data-type='login'>Login</button>
+                    <button id='sign-up-button' class="btn btn-secondary" data-type='signup'>Sign-Up</button>
+                </div>
+                <div id='join-site-forms'>
+                    <form id='login-form' class='d-none'>
+                        <h4 class='display-4 font-italic'>Login</h4>
+                        <div class="form-group">
+                          <input type="text" class="form-control" name='username' placeholder="Enter username">
+                          <small id="usernameHelp" class="form-text text-muted">Username is case sensitive!</small>
+                        </div>
+                        <!-- <div class="form-group">
+                          <label for="password">Password</label>
+                          <input type="password" class="form-control" id="login-password-field" placeholder="Password">
+                        </div> -->
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                    <form id='signup-form' class='d-none'>
+                        <h4 class='display-4 font-italic'>Sign-Up</h4>
+                        <div class="form-group">
+                            <input type="text" class="form-control" name='username' placeholder="Enter username">
+                            <small id="usernameHelp" class="form-text text-muted">Username is case sensitive!</small>
+                          </div>
+                          <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
             </div>
             <div id='game-div' class='d-none'>
                 <div id='search-form-container' class='d-flex justify-content-center flex-column'>
