@@ -65,6 +65,25 @@ function displayGameItem(json) {
     gameCardContainer.appendChild(gameCard)
 }
 
+function fetchAndHideItem() {
+    fetch(baseURL+'items/sample-item')
+        .then(resp => resp.json())
+        .then(hideGameItem)
+}
+
+function hideGameItem(json) {
+    const gameCard = createGameItemDiv(json)
+    gameCard.className = 'd-none'
+    const gameCardContainer = document.getElementById('game-item-container')
+    gameCardContainer.appendChild(gameCard)
+}
+
+function getNextGameItem() {
+    const gameCardContainer = document.getElementById('game-item-container')
+    gameCardContainer.removeChild(gameCardContainer.firstChild)
+}
+
+
 function fetchPostGameScore() {
     // take the cartId and number of skips and send to DB to generate a score
     const cart = document.getElementById('cart')
