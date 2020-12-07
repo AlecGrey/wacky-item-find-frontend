@@ -8,8 +8,9 @@ function createUserDisplayContent() {
     const welcomeDiv = createNewWelcomeDiv()
     const changeNameDiv = createChangeUserNameDiv()
     const deleteUserDiv = createDeleteUserDiv()
+    const logoutDiv = createLogoutDiv()
     
-    userDisplay.append(welcomeDiv, changeNameDiv, deleteUserDiv)
+    userDisplay.append(welcomeDiv, changeNameDiv, deleteUserDiv, logoutDiv)
 }
 
 function createNewWelcomeDiv() {
@@ -96,6 +97,21 @@ function createDeleteUserDiv() {
     no.addEventListener('click', cancelDeleteUser)
 
     div.append(deleteButton, yes, no)
+    return div
+}
+
+function createLogoutDiv() {
+    const div = document.createElement('div')
+    div.id = 'logout-div'
+
+    const logoutButton = document.createElement('button')
+    logoutButton.textContent = 'Logout'
+    logoutButton.className = 'btn btn-secondary'
+    logoutButton.id = 'logout-button'
+
+    logoutButton.addEventListener('click', returnToLogin)
+
+    div.appendChild(logoutButton)
     return div
 }
 

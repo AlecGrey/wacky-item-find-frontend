@@ -293,6 +293,7 @@ function loginButtonClick(event) {
             toggleLeaderboardButtonDisplay()
             toggleLoginContainerDisplay()
             toggleStartGameButton()
+            fetchAndUpdateCurrentLeaderboard()
             // toggleGameDisplay()
             break
         default:

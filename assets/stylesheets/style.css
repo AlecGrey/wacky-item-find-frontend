@@ -170,20 +170,21 @@
     margin: auto 2%;
 }
 
-#delete-user-div {
+#delete-user-div, #logout-div {
     display: grid;
     grid-template-columns: 30% 15% 15% 40%;
     grid-template-rows: auto;
     grid-template-areas:
-        'delete-button yes no .';
+        'button yes no .';
 }
 
 #delete-user-div > button {
     margin: 0 5% 0 0;
 }
 
-#delete-user-button {
-    grid-area: delete-button;
+#delete-user-button, #logout-button {
+    grid-area: button;
+    margin: 0 5% 0 0;
 }
 
 #delete-yes {

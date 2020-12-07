@@ -27,6 +27,7 @@ function gameEnd() {
     toggleGameDisplay()
     resetFormFields()
     fetchPostGameScore()
+    fetchAndUpdateCurrentLeaderboard()
     // resetGameEnvironment()
 }
 
