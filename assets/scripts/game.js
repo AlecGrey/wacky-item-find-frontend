@@ -18,7 +18,7 @@ function toggleGameDisplay() {
 
 function startGame() {
     // sets timer using setInterval function, sets timeout for gameEnd()
-    const gameTime = 60 // seconds
+    const gameTime = 30 // seconds
     timer(gameTime * 10) // returns gameEnd() within
 }
 
@@ -28,13 +28,18 @@ function gameEnd() {
     resetFormFields()
     fetchPostGameScore()
     fetchAndUpdateCurrentLeaderboard()
-    // resetGameEnvironment()
+    // additions below
+    fetchSampleItem()
+    addItemsToPage()
 }
 
 function quitGameEarly() {
     // does game end functionality, minus the score posting
     toggleGameDisplay()
     resetFormFields()
+    // additions below
+    fetchSampleItem()
+    addItemsToPage()
 }
 
 function resetGameEnvironment() {
