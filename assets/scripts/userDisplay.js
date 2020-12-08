@@ -175,6 +175,7 @@ function changeUsername(event) {
     fetch(baseURL+'users/'+userId, configObject)
         .then(resp => resp.json())
         .then(json => {
+            console.log(json);
             if (!json.name) {return alert('Name already taken!')} 
             updateUserPage(json)
         })
