@@ -114,6 +114,7 @@ function joinSiteProcedures(json) {
     toggleLoginContainerDisplay()
     toggleStartGameButton()
     fetchAndUpdateCurrentLeaderboard()
+    hideLoginErrors()
 }
 
 function generateNewUserConfigObject(name) {
