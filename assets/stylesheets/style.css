@@ -96,6 +96,7 @@
     right: 1%;
     background-color: lightgray;
     border-radius: 0 0 10px 10px;
+    box-shadow: 0 0 5px rgba(0,0,0,.05), 2px 2px 5px rgba(0,0,0,.1);
 }
 
 .game-card-text {
