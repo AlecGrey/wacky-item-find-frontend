@@ -1,9 +1,12 @@
 function loadAdminPage() {
     toggleLoginContainerDisplay()
+    hideLoginForm()
+    document.getElementById('login-form').reset()
     showAdminPage()
     addAdminItemsToPage()
     getAdminSearchBarCategories()
     addAdminEventsToPage()
+    showAdminLogoutButton()
 }
 
 function addAdminItemsToPage() {
@@ -13,6 +16,14 @@ function addAdminItemsToPage() {
             createAndAppendAdminItemsFromCollection(json.items)
             // document.getElementById('items').dataset.page = 1
         })
+}
+
+function showAdminLogoutButton() {
+    document.getElementById('admin-logout').className = 'head-icon'
+}
+
+function hideAdminLogoutButton() {
+    document.getElementById('admin-logout').className = 'd-none'
 }
 
 function showAdminPage() {
@@ -159,6 +170,18 @@ function addAdminEventsToPage() {
     addAdminPageChangeEvent()
     addAdminCategorySelectEvent()
     addAdminSearchEvent()
+    addAdminLogoutEvent()
+}
+
+function addAdminLogoutEvent() {
+    document.getElementById('admin-logout').addEventListener('click', logoutAdminEvent)
+}
+
+function logoutAdminEvent(event) {
+    hideAdminLogoutButton()
+    hideAdminPage()
+    toggleLoginContainerDisplay()
+    removeAllChildNodes(document.getElementById('admin-items'))
 }
 
 function addAdminCategorySelectEvent() {

@@ -147,12 +147,12 @@ form > h4 {
     box-shadow: 0 0 5px rgba(0,0,0,.05), 2px 2px 5px rgba(0,0,0,.1)
 }
 
-#quit-game:active, #homepage-button:active, #leaderboard-button:active, #game-start:active {
+#admin-logout:active, #quit-game:active, #homepage-button:active, #leaderboard-button:active, #game-start:active {
     font-size: 30px;
     background-color: rgb(71, 199, 128);
 }
 
-#quit-game:hover, #homepage-button:hover, #leaderboard-button:hover, #game-start:hover {
+#admin-logout:hover, #quit-game:hover, #homepage-button:hover, #leaderboard-button:hover, #game-start:hover {
     cursor: pointer;
 }
 
