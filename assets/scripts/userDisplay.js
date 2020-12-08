@@ -174,7 +174,10 @@ function changeUsername(event) {
     // debugger
     fetch(baseURL+'users/'+userId, configObject)
         .then(resp => resp.json())
-        .then(updateUserPage)
+        .then(json => {
+            if (!json.name) {return alert('Name already taken!')} 
+            updateUserPage(json)
+        })
 }
 
 function generatePatchObjectForNewUsername(username) {

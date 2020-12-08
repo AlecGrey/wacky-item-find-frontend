@@ -95,7 +95,7 @@ function loginProcedure(json) {
     if (!!json.id) {
         hideLoginForm()
 
-        joinSiteProcedures(json.name)
+        joinSiteProcedures(json)
     } else {
         alert('Invalid login!')
     }
@@ -105,17 +105,17 @@ function loginProcedure(json) {
 function signupProcedure(json) {
     if (!!json.id) {
         hideSignupForm()
-        joinSiteProcedures(json.name)        
+        joinSiteProcedures(json)        
     } else {
         alert('Invalid Username!')
     }
     document.getElementById('signup-form').reset()
 }
 
-function joinSiteProcedures(name) {
-    appendUserIdToMain(name)
+function joinSiteProcedures(json) {
+    appendUserIdToMain(json.id)
     fetchNewCart()
-    appendUsernameToWelcomeMessage(name)
+    appendUsernameToWelcomeMessage(json.name)
     toggleUserDivDisplay()
     toggleLeaderboardButtonDisplay()
     toggleLoginContainerDisplay()
