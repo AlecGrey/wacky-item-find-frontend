@@ -81,6 +81,7 @@
 
 #page-buttons, #admin-page-buttons {
     margin: 20px 0px 0px 0px;
+    position: relative;
 }
 
 #page-buttons > button, #admin-page-buttons > button {
@@ -221,4 +222,11 @@ form > h4 {
 
 #error-box {
     margin: 2% 0;
+}
+
+#page-display {
+    margin: auto 0;
+    position: absolute;
+    left: 55.5%;
+    top: 5%;
 }

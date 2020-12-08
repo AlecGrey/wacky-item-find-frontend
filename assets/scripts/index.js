@@ -7,6 +7,7 @@ function addItemsToPage() {
         .then(resp => resp.json())
         .then(json => {
             createAndAppendItemsFromCollection(json.items)
+            changeCurrentPageDisplay(json.page, json.total_pages)
             // document.getElementById('items').dataset.page = 1
         })
 }
@@ -17,7 +18,6 @@ function createAndAppendItemsFromCollection(collection) {
     removeAllChildNodes(itemsDiv)
 
     for (const item of collection) {
-        // debugger
         const div = createItemDiv(item)
         itemsDiv.appendChild(div)
     }
@@ -131,7 +131,12 @@ function fetchItemsWithParamsPath(paramsPath) {
             if (json.items === null || json.items.length === 0) {return}
             changePageNumber(json.page)
             createAndAppendItemsFromCollection(json.items)
+            changeCurrentPageDisplay(json.page, json.total_pages)
         })
+}
+
+function changeCurrentPageDisplay(current, total) {
+    document.getElementById('page-display').textContent = `${current}/${total}`
 }
 
 function createPathFromSearchFields(form) {
@@ -179,16 +184,6 @@ function fetchNewCart() {
         .then(resp => resp.json())
         .then(createAndAppendCartToHead)
 }
-
-// function generateCartConfigObject() {
-//     return {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json',
-//             'Accept': 'application/json'
-//         }
-//     }
-// }
 
 function createAndAppendCartToHead(json) {
     const h4 = document.createElement('h4')
@@ -409,6 +404,7 @@ function addEventsToPage() {
     // events to login and signup
     addLoginEvent()
     addSignupEvent()
+    allowCartItemsToBeAdded()
 }
 
 // ----- SINGLE ACCESS POINT FUNCTION ----- //

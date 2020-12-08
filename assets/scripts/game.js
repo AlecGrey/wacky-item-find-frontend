@@ -2,7 +2,6 @@
 function startNewGame(event) {
     // resets game environment, fetches game list, runs game
     toggleGameDisplay()
-    allowCartItemsToBeAdded()
     startGame() // includes game end functionality
 }
 
@@ -18,18 +17,18 @@ function toggleGameDisplay() {
 
 function startGame() {
     // sets timer using setInterval function, sets timeout for gameEnd()
-    const gameTime = 30 // seconds
+    const gameTime = 3 // seconds
     timer(gameTime * 10) // returns gameEnd() within
 }
 
 function gameEnd() {
     // game end functionality, tied to a setTimeout function
+    fetchPostGameScore()
     toggleGameDisplay()
     resetFormFields()
-    fetchPostGameScore()
     fetchAndUpdateCurrentLeaderboard()
-    // additions below
-    fetchSampleItem()
+    resetGameEnvironment()
+    getNextGameItem()
     addItemsToPage()
 }
 
@@ -37,14 +36,15 @@ function quitGameEarly() {
     // does game end functionality, minus the score posting
     toggleGameDisplay()
     resetFormFields()
-    // additions below
-    fetchSampleItem()
+    getNextGameItem()
     addItemsToPage()
+    resetGameEnvironment()
 }
 
 function resetGameEnvironment() {
     // add functionality to clean the game environment for a new game
     emptyCart()
+    resetSkips()
 }
 
 function emptyCart() {
@@ -101,14 +101,12 @@ function fetchPostGameScore() {
     const userId = parseInt(document.getElementById('main').dataset.userId)
     const cartId = parseInt(cart.dataset.cartId)
     const skips = parseInt(cart.dataset.gameSkips)
-    // debugger
     const configObject = generateScoreConfigObject(userId, cartId, skips)
 
     fetch(baseURL + 'scores', configObject)
         .then(resp => resp.json())
         .then(json => {
             alert(`${json.user} scored ${json.score} points!`)
-            resetGameEnvironment()
         })
 }
 
@@ -147,4 +145,8 @@ function skipGameItem(event) {
 
 function resetFormFields() {
     document.getElementById('search-form').reset()
+}
+
+function resetSkips() {
+    document.getElementById('cart').dataset.gameSkips = 0
 }
