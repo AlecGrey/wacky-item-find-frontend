@@ -218,3 +218,7 @@ form > h4 {
 #user-display > div {
     margin: 2% 0 0 0;
 }
+
+#error-box {
+    margin: 2% 0;
+}

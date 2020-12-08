@@ -1,14 +1,3 @@
-// function createLoginDiv() {
-//     // add all login features to a new div and return div
-//     const div = document.createElement('div')
-//     const button = document.createElement('button')
-//     button.className = 'btn btn-secondary'
-//     button.dataset.type = 'guest'
-//     button.textContent = ' Play as Guest '
-//     div.appendChild(button)
-//     return div
-// }
-
 function loginButtonClick(event) {
     if (event.target.tagName !== 'BUTTON') {return}
     // debugger
@@ -27,11 +16,13 @@ function loginButtonClick(event) {
 function displayLoginFields() {
     hideSignupForm()
     showLoginForm()
+    hideLoginErrors()
 }
 
 function displaySignupFields() {
     hideLoginForm()
     showSignupForm()
+    hideLoginErrors()
 }
 
 function returnToLogin() {
@@ -97,7 +88,8 @@ function loginProcedure(json) {
 
         joinSiteProcedures(json)
     } else {
-        alert('Invalid login!')
+        showLoginErrors()
+        addErrorsToPage(json.errors)
     }
     document.getElementById('login-form').reset()
 }
@@ -107,7 +99,8 @@ function signupProcedure(json) {
         hideSignupForm()
         joinSiteProcedures(json)        
     } else {
-        alert('Invalid Username!')
+        showLoginErrors()
+        addErrorsToPage(json.errors)
     }
     document.getElementById('signup-form').reset()
 }
@@ -138,4 +131,28 @@ function generateNewUserConfigObject(name) {
 
 function appendUserIdToMain(id) {
     document.getElementById('main').dataset.userId = id
+}
+
+function showLoginErrors() {
+    document.getElementById('error-box').className = 'd-flex justify-content-center flex-column alert alert-danger'
+}
+
+function hideLoginErrors() {
+    document.getElementById('error-box').className = 'd-none'
+}
+
+function addErrorsToPage(errorArray) {
+    const errorDiv = document.getElementById('error-box')
+    removeAllChildNodes(errorDiv)
+    for (const err of errorArray) {
+        const p = createErrorTextElement(err)
+        errorDiv.appendChild(p)
+    }
+}
+
+function createErrorTextElement(string) {
+    const p = document.createElement('p')
+    p.className = 'my-1'
+    p.textContent = string
+    return p
 }
