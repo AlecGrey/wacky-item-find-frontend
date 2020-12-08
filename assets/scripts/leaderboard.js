@@ -48,6 +48,7 @@ function toggleBetweenLeaderboardPageAndUserPage() {
     toggleLeaderboardDivDisplay()
     toggleLeaderboardButtonDisplay()
     toggleHomepageButtonDisplay()
+    toggleStartGameButton()
 }
 
 function toggleLeaderboardDivDisplay() {
