@@ -42,9 +42,6 @@ function createItemDiv(itemObject) {
     itemImage.className += ' width-200px'
     itemImage.alt = itemObject.item_type
 
-    // const itemPrice = document.createElement('p')
-    // itemPrice.textContent = `$${itemObject.price}`
-
     const addToCartButton = document.createElement('button')
     addToCartButton.textContent = "Add to Cart"
     addToCartButton.className = 'd-none'
@@ -154,10 +151,6 @@ function changePage(event) {
     } else if (event.target.textContent === "Next") {
         changePageNext(pageNumber)
     }
-    // const form = document.getElementById('search-form')
-    // let path = createPathFromSearchFields(form)
-    // path += `&page=${parseInt(event.target.parentNode.dataset.page)+1}`
-    // fetchItemsWithParamsPath(path)
 }
 
 function changePagePrevious(pageNumber) {

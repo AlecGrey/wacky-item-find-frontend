@@ -65,7 +65,7 @@
     grid-area: left;
 }
 
-#search-form-container {
+#search-form-container, #admin-search-form-container {
     margin: 10px 0px;
     /* padding: 35px 0px; */
     width: 100%;
@@ -75,19 +75,19 @@
     border-style: solid; */
 }
 
-#search-form > .field {
+#search-form > .field, #admin-search-form > .field {
     margin: 0px 20px 0px 5px;
 }
 
-#page-buttons {
+#page-buttons, #admin-page-buttons {
     margin: 20px 0px 0px 0px;
 }
 
-#page-buttons > button {
+#page-buttons > button, #admin-page-buttons > button {
     margin: 0px 5px;
 }
 
-#items, #login-container {
+#items, #login-container, #admin-items {
     padding: 20px 80px;
 }
 #game-item-container {

@@ -84,6 +84,7 @@ function fetchLoginUser(event) {
     event.preventDefault()
     const username = event.target.username.value
     if (username === "") {return alert('username cannot be blank!')}
+    if (username === "ADMIN") {return loadAdminPage()}
 
     fetch(baseURL+'login?username='+username)
         .then(resp => resp.json())
@@ -113,13 +114,13 @@ function signupProcedure(json) {
 
 function joinSiteProcedures(name) {
     appendUserIdToMain(name)
-        fetchNewCart()
-        appendUsernameToWelcomeMessage(name)
-        toggleUserDivDisplay()
-        toggleLeaderboardButtonDisplay()
-        toggleLoginContainerDisplay()
-        toggleStartGameButton()
-        fetchAndUpdateCurrentLeaderboard()
+    fetchNewCart()
+    appendUsernameToWelcomeMessage(name)
+    toggleUserDivDisplay()
+    toggleLeaderboardButtonDisplay()
+    toggleLoginContainerDisplay()
+    toggleStartGameButton()
+    fetchAndUpdateCurrentLeaderboard()
 }
 
 function generateNewUserConfigObject(name) {

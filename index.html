@@ -12,11 +12,12 @@
         <link rel='stylesheet' href='./assets/stylesheets/style.css'>
 
         <!-- SCRIPT SHEETS: run.js must go last! -->
-        <script defer src='./assets/scripts/login.js'></script>
+        <script defer src='./assets/scripts/admin.js'></script>
         <script defer src='./assets/scripts/game.js'></script>
         <script defer src='./assets/scripts/leaderboard.js'></script>
-        <script defer src='./assets/scripts/newUser.js'></script>
+        <script defer src='./assets/scripts/login.js'></script>
         <script defer src='./assets/scripts/userDisplay.js'></script>
+                <!-- end with index/run files -->
         <script defer src="./assets/scripts/index.js"></script>
         <script defer src='./assets/scripts/run.js'></script>
     </head>
@@ -98,6 +99,24 @@
                     </thead>
                     <tbody id='leaderboard-scores'></tbody>
                 </table>
+            </div>
+            <div id='admin-div' class='d-none'>
+                <div id='admin-search-form-container' class='d-flex justify-content-center flex-column'>
+                    <form id='admin-search-form' class='d-flex justify-content-center'>
+                        <label>Category: </label>
+                        <select id='admin-category-select' class='field' name='category'>
+                            <option value='all'>All</option>
+                        </select>
+                        <label>Search: </label>
+                        <input class ='field' type='text' name='query'>
+                        <input type="submit">
+                    </form>
+                    <div id="admin-page-buttons" class='d-flex justify-content-center' data-page='1'>
+                        <button type="button">Previous</button>
+                        <button type="button">Next</button>
+                    </div>
+                </div>
+                <div id="admin-items" class='d-flex justify-content-center flex-wrap'></div>
             </div>
         </div>
     </body>
