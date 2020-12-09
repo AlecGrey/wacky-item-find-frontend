@@ -1,25 +1,22 @@
 # Listify
 
-### [Follow this link for a video demonstration!](https://youtu.be/dEenBGEsh8A)
+### [Follow this link for a video demonstration!](https://youtu.be/tLrnKS0Hfr8)
 
 ## Description
 
-This application was developed to practice Ruby on Rails fundamentals, and also as a proof of concept for a grocery-list builder application.  The current application will allow a user to create an account, and from their user interface they can create grocery lists, and add recipes to their grocery list.  These meal recipes will have a list of ingredients, and by adding them to their grocery list, it will accumulate all the ingredients into an organized list.  
+This is a demo of a single page application (SPA) that I made at Flatiron School.  It was a solo-project made over the course of a week, using a JavaScript frontend and a Rails API backend.  All data was pulled from the Etsy database, then seeded in the Rails API.
 
-Future functionality should include:
-- Utilize grocery and meal recipe APIs
-- Creating, reading, updating, and destroying custom recipes
-- Match food items with grocery items from API to determine cost estimates for grocery trip
-- Increased grocery-list functionality, such as custom names, a more robust interface, and the ability to generate a printable PDF
-- Mobile functionality
+Github Link for the Rails API backend: https://github.com/AlecGrey/wacky-item-find-backend
+
+For the future I would like to add additional CSS animations, as well as secure account functionality.
 
 
 ## Instructions
 
-- Fork and clone this repo
-- Run `bundle install` to install and set all gem dependencies
-- Plant seed data with `rails db:seed`
-- Serve it up with `rails s`!
+- Fork and clone this repo, as well as the [Rails API Backend](https://github.com/AlecGrey/wacky-item-find-backend).
+- Begin by seeding your database (this may take some time, as it is making many requests to an external API, and will process until it creates 100 items)
+- Run the frontend by navigating to the frontend directory and entering `open index.html` in your command line.
+- Have fun!
 
 ## Contributors
 
