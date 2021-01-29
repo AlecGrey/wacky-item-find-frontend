@@ -1,4 +1,4 @@
-# Listify
+# Wacky Item Find!
 
 ### [Follow this link for a video demonstration!](https://youtu.be/tLrnKS0Hfr8)
 
